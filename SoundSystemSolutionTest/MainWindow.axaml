@@ -1,0 +1,148 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="400"
+        Width="350" Height="420"
+        x:Class="SoundSystemSolutionTest.MainWindow"
+        RequestedThemeVariant="Light"
+        Title="SoundSystemSolutionTest"
+        CornerRadius="20">
+    
+    <Window.Styles>
+        
+        <!-- Button style -->
+        <Style Selector="Button">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="35"/>
+        </Style>
+        
+        <!-- Base TextBox style -->
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="DarkBlue"/>
+            <Setter Property="SelectionBrush" Value="LightBlue"/>
+            <Setter Property="CaretBrush" Value="DarkBlue"/>
+            </Style>
+
+        <!-- Textbox hover effect -->
+        <Style Selector="TextBox:pointerover">
+            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+            <Setter Property="Background" Value="#FFE6F0FF"/>
+            <Setter Property="Foreground" Value="DarkSlateBlue"/>
+        </Style>
+
+        <!-- Textbox focused effect -->
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="MediumSeaGreen"/>
+            <Setter Property="Background" Value="#FFE6FFF0"/>
+        </Style>
+    </Window.Styles>
+
+    
+    <Grid Background="Azure" 
+          ColumnDefinitions="*, Auto, *" RowDefinitions="Auto, Auto, Auto, *">
+        
+        <!-- Login Label -->
+        <StackPanel Width="250" Height="70" Grid.Column="1" Grid.Row="0" Margin="0 0 0 5">
+            <TextBlock Text="Admin Login"
+                FontSize="25"
+                Foreground="Black"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="15, 70, 0, 2"
+                />
+            <TextBlock Text="Enter your account details"
+                FontSize="11"
+                Foreground="Black"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="15, 0, 0, 70"
+                />
+        </StackPanel>
+        
+        <!-- Login -->
+        <Grid Background="Azure" 
+              Width="250" Height="150" 
+              Grid.Column="1" Grid.Row="1" 
+              Margin="0, 50,0,0">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Username"
+                       FontSize="16"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="15, 10, 0, 0"
+                       Grid.Row="0"/>
+           
+            <TextBox Width="215" x:Name="UsernameTextBox"
+                     Watermark="Enter your username"
+                     HorizontalAlignment="Left"
+                     Grid.Row="1"
+                     Margin="15,6,0,0"/>
+
+            <TextBlock Text="Password"
+                       FontSize="16"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="15, 10, 0, 0"
+                       Grid.Row="2"/>
+
+            <TextBox Width="215" x:Name="PasswordTextBox"
+                     PasswordChar="*" Watermark="Enter your password"
+                     HorizontalAlignment="Left"
+                     Grid.Row="3"
+                     Margin="15,6,0,0"/>
+            
+            <TextBlock Text="" x:Name="StatusLabel"
+                       FontSize="11"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Bottom"
+                       Margin="15, 8, 0, 0"
+                       Grid.Row="4"/>
+        </Grid>
+        
+        <!-- Buttons -->
+        <DockPanel Grid.Column="1" Grid.Row="2" Margin="0 11">
+            
+            <Button x:Name="LoginButton"
+                    Background="LightBlue"
+                    Margin="14 5"
+                    Click="LoginButton_OnClick"
+            >
+                Login
+            </Button>
+            
+            <Button x:Name="CheckAwsButton"
+                    Background="LightBlue"
+                    Margin="0 5 10 5"
+                    Click="CheckAwsButton_OnClick"
+                    >
+                Check AWS
+            </Button>
+            
+            <TextBlock x:Name="AwsLabel"
+                    Text=""
+                    FontSize="17"
+                    Foreground="Black"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="5,7"
+            />
+        </DockPanel>
+    </Grid>
+</Window>
