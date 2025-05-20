@@ -127,3 +127,6 @@ C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\runtimes\win-x64\native\krb5_64.dll
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\runtimes\win-x64\native\krbcc64.dll
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\DialogHost.Avalonia.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\MsBox.Avalonia.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\obj\Debug\net9.0\SoundSystemSolutionTest.sourcelink.json

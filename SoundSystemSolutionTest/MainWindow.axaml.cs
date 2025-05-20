@@ -2,6 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using MySql.Data.MySqlClient;
 
@@ -26,7 +28,7 @@ public partial class MainWindow : Window
     }
 
     
-    private async void LoginButton_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void LoginButton_OnClick(object? sender, RoutedEventArgs? e)
     //login button behaviour
     {
         try
@@ -67,6 +69,17 @@ public partial class MainWindow : Window
         }
     }
 
+    
+    private void PasswordTextBox_OnKeyDown(object? sender, KeyEventArgs e)
+    //behavior for when user presses enter while in password textbox
+    {
+        if (e.Key == Key.Enter)
+        {
+            LoginButton_OnClick(LoginButton, null);
+            e.Handled = true;
+        }
+    }
+    
     
     private async Task<bool> VerifyCredentialsAsync(string username, string password)
     //takes username and password as parameters and checks if the
