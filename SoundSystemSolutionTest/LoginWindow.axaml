@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="400"
         Width="350" Height="420"
-        x:Class="SoundSystemSolutionTest.MainWindow"
+        x:Class="SoundSystemSolutionTest.LoginWindow"
         RequestedThemeVariant="Light"
         Title="SoundSystemSolutionTest"
         CornerRadius="20">

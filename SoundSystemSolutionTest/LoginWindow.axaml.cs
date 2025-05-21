@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace SoundSystemSolutionTest;
 
-public partial class MainWindow : Window
+public partial class LoginWindow : Window
 {
     private CancellationTokenSource? _awsAnimationCts;
     private static string _dbpassword = Environment.GetEnvironmentVariable("DB_PASSWORD")!;
@@ -22,7 +22,7 @@ public partial class MainWindow : Window
         Database = "logincredentials"
     };
     
-    public MainWindow()
+    public LoginWindow()
     {
         InitializeComponent();
     }
@@ -64,8 +64,9 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
+            //show error to user
             Console.WriteLine($"Login error: {ex.Message}");
-            // Show error to user
+            
         }
     }
 
@@ -117,7 +118,7 @@ public partial class MainWindow : Window
     }
 
 
-    private async void CheckAwsButton_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void CheckAwsButton_OnClick(object? sender, RoutedEventArgs e)
     //check aws button behavior
     //checks if the AWS database connection is working
     //features an ellipsis animation

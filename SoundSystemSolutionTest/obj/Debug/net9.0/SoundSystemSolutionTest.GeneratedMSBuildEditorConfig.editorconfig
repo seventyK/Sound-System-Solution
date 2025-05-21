@@ -24,5 +24,8 @@ build_property.EnableCodeStyleSeverity =
 [C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/MainWindow.axaml]
+[C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/Dashboard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
