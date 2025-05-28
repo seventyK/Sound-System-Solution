@@ -1,0 +1,156 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+        Width="1280" Height="720"
+        x:Class="SoundSystemSolutionTest.Dash"
+        RequestedThemeVariant="Light"
+        Title="Dashboard"
+        ExtendClientAreaToDecorationsHint="True">
+    
+    <Window.Styles>
+        
+        <!-- Tab Button Style -->
+        <Style Selector="Button.TabButton">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="#E0E0E0"/>
+        </Style>
+        
+        <!-- Selected Tab Button Style -->
+        <Style Selector="Button.TabButton:pressed">
+            <Setter Property="Background" Value="#BDBDBD"/>
+        </Style>
+        
+        <Style Selector="Button.TabButton.Selected">
+            <Setter Property="Background" Value="#90CAF9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, Auto,*">
+        
+        <!-- Top Rectangle with Gradient -->
+        <Rectangle Grid.Row="0" Height="30" IsHitTestVisible="False">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                    <GradientStop Color="#330d69" Offset="0.0" />
+                    <GradientStop Color="#3d4283" Offset="0.5" />
+                    <GradientStop Color="#285ce0" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        
+        <!-- Top Panel with Gradient -->
+        <Grid Grid.Row="1" Height="55" ColumnDefinitions="Auto, Auto, *, Auto, Auto">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                    <GradientStop Color="#330d69" Offset="0.0" />
+                    <GradientStop Color="#3d4283" Offset="0.5" />
+                    <GradientStop Color="#285ce0" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            
+            <TextBlock Grid.Column="0" 
+                       Text="Bicol Sound" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="White" 
+                       Padding="17 15 2 15"/>
+            
+            <TextBlock Grid.Column="1" 
+                       Text=" | Rental Management System" 
+                       FontSize="24" 
+                       FontWeight="Light" 
+                       Foreground="Azure" 
+                       Padding="0 15 15 15"/>
+            
+            <TextBlock Grid.Column="2" 
+                       Text="Hello, user" 
+                       FontSize="15"
+                       FontWeight="Light"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center" 
+                       Foreground="Azure"
+                       Margin="0 9 15 0"/>
+            
+            <Button Grid.Column="3"
+                    Background="Transparent"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    ToolTip.Tip="Profile (in progress)"
+                    Margin="0 -10 0 -12"
+                    Padding="0 17 0 15">
+                <Image Source="/Assets/dashboard_person.png" Width="60" Height="25"
+                       RenderOptions.BitmapInterpolationMode="MediumQuality"/>
+            </Button>
+            
+            <Button Grid.Column="4" x:Name="LogoutButton"
+                    Background="Transparent"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    ToolTip.Tip="Logout"
+                    Margin="0 -10 0 -12"
+                    Padding="0 17 0 15">
+                <Image Source="/Assets/logout_icon.png" Width="60" Height="25"
+                       RenderOptions.BitmapInterpolationMode="MediumQuality"/>
+            </Button>
+            
+        </Grid>
+        
+        <!-- Main Content Area -->
+        <Grid Grid.Row="2" ColumnDefinitions="250,*">
+            
+            <!-- Left Sidebar with Tabs -->
+            <Border Grid.Column="0" Background="#F5F5F5" Padding="5">
+                
+                <StackPanel>
+                    
+                    <Button x:Name="Tab1Button" 
+                            Content="Welcome" 
+                            Classes="TabButton Selected"
+                            Click="OnTabButtonClick"/>
+                    
+                    <Button x:Name="Tab2Button" 
+                            Content="Transactions" 
+                            Classes="TabButton"
+                            Click="OnTabButtonClick"/>
+                    
+                    <Button x:Name="Tab3Button" 
+                            Content="Ongoing Rentals" 
+                            Classes="TabButton"
+                            Click="OnTabButtonClick"/>
+                    
+                </StackPanel>
+                
+            </Border>
+            
+            <!-- Right Content Panel -->
+            <Border Grid.Column="1" Padding="10" Background="White">
+               
+                <ContentControl x:Name="ContentArea">
+                    
+                    <!-- Default content for Tab 1 -->
+                    <Panel x:Name="Tab1Content">
+                       
+                        <TextBlock Text="Content 1" 
+                                   FontSize="20" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                        
+                    </Panel>
+                    
+                </ContentControl>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

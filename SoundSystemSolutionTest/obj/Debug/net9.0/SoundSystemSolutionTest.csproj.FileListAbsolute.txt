@@ -130,3 +130,11 @@ C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\DialogHost.Avalonia.dll
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\MsBox.Avalonia.dll
 C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\obj\Debug\net9.0\SoundSystemSolutionTest.sourcelink.json
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\Avalonia.Svg.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\ExCSS.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\ShimSkiaSharp.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\Svg.Custom.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\Svg.Model.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\Avalonia.Svg.Skia.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\SkiaSharp.HarfBuzz.dll
+C:\Users\Alec\RiderProjects\SoundSystemSolutionTest\SoundSystemSolutionTest\bin\Debug\net9.0\Svg.Skia.dll

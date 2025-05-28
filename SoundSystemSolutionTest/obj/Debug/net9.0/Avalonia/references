@@ -17,6 +17,8 @@ C:\Users\Alec\.nuget\packages\avalonia.native\11.2.7\lib\net8.0\Avalonia.Native.
 C:\Users\Alec\.nuget\packages\avalonia\11.2.7\ref\net8.0\Avalonia.OpenGL.dll
 C:\Users\Alec\.nuget\packages\avalonia.remote.protocol\11.2.7\lib\net8.0\Avalonia.Remote.Protocol.dll
 C:\Users\Alec\.nuget\packages\avalonia.skia\11.2.7\lib\net8.0\Avalonia.Skia.dll
+C:\Users\Alec\.nuget\packages\avalonia.svg\11.2.7\lib\net8.0\Avalonia.Svg.dll
+C:\Users\Alec\.nuget\packages\avalonia.svg.skia\11.2.7\lib\net8.0\Avalonia.Svg.Skia.dll
 C:\Users\Alec\.nuget\packages\avalonia.themes.fluent\11.2.7\lib\net8.0\Avalonia.Themes.Fluent.dll
 C:\Users\Alec\.nuget\packages\avalonia.themes.simple\11.2.7\lib\net8.0\Avalonia.Themes.Simple.dll
 C:\Users\Alec\.nuget\packages\avalonia\11.2.7\ref\net8.0\Avalonia.Vulkan.dll
@@ -26,6 +28,7 @@ C:\Users\Alec\.nuget\packages\azure.core\1.38.0\lib\net6.0\Azure.Core.dll
 C:\Users\Alec\.nuget\packages\azure.identity\1.11.4\lib\netstandard2.0\Azure.Identity.dll
 C:\Users\Alec\.nuget\packages\bouncycastle.cryptography\2.5.1\lib\net6.0\BouncyCastle.Cryptography.dll
 C:\Users\Alec\.nuget\packages\dialoghost.avalonia\0.8.1\lib\netstandard2.0\DialogHost.Avalonia.dll
+C:\Users\Alec\.nuget\packages\excss\4.3.0\lib\net8.0\ExCSS.dll
 C:\Users\Alec\.nuget\packages\google.protobuf\3.30.0\lib\net5.0\Google.Protobuf.dll
 C:\Users\Alec\.nuget\packages\harfbuzzsharp\7.3.0.3\lib\net6.0\HarfBuzzSharp.dll
 C:\Users\Alec\.nuget\packages\k4os.compression.lz4\1.3.8\lib\net6.0\K4os.Compression.LZ4.dll
@@ -53,7 +56,12 @@ C:\Users\Alec\.nuget\packages\messagebox.avalonia\3.2.0\lib\netstandard2.0\MsBox
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\9.0.4\ref\net9.0\mscorlib.dll
 C:\Users\Alec\.nuget\packages\mysql.data\9.3.0\lib\net9.0\MySql.Data.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\9.0.4\ref\net9.0\netstandard.dll
+C:\Users\Alec\.nuget\packages\shimskiasharp\2.0.0.8\lib\net8.0\ShimSkiaSharp.dll
 C:\Users\Alec\.nuget\packages\skiasharp\2.88.9\lib\net6.0\SkiaSharp.dll
+C:\Users\Alec\.nuget\packages\skiasharp.harfbuzz\2.88.9\lib\net6.0\SkiaSharp.HarfBuzz.dll
+C:\Users\Alec\.nuget\packages\svg.custom\2.0.0.8\lib\net8.0\Svg.Custom.dll
+C:\Users\Alec\.nuget\packages\svg.model\2.0.0.8\lib\net8.0\Svg.Model.dll
+C:\Users\Alec\.nuget\packages\svg.skia\2.0.0.8\lib\net8.0\Svg.Skia.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\9.0.4\ref\net9.0\System.AppContext.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\9.0.4\ref\net9.0\System.Buffers.dll
 C:\Users\Alec\.nuget\packages\system.clientmodel\1.0.0\lib\net6.0\System.ClientModel.dll

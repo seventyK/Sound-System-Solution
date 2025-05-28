@@ -11,6 +11,8 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.7" />
         <PackageReference Include="Avalonia.Desktop" Version="11.2.7" />
+        <PackageReference Include="Avalonia.Svg" Version="11.2.7" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.2.7" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.7" />
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.7" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -22,4 +24,14 @@
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
         <PackageReference Include="MySql.Data" Version="9.3.0" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Assets\logout_icon.png" />
+        <AvaloniaResource Include="Assets\logout_icon.png" />
+        <None Remove="Assets\dashboard_person.png" />
+        <AvaloniaResource Include="Assets\dashboard_person.png" />
+    </ItemGroup>
+
+
+
 </Project>

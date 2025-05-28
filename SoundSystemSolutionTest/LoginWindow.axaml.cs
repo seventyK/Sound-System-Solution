@@ -55,6 +55,10 @@ public partial class LoginWindow : Window
                 //login successful, proceed with application logic
                 //navigate to main application window?????
                 StatusLabel.Text = "Login successful";
+                var newLogin = new Dash();
+                newLogin.Show();
+                
+                Close();
             }
             else
             {
@@ -116,7 +120,14 @@ public partial class LoginWindow : Window
             return false;
         }
     }
-
+    
+    private void TitleBar_PointerPressed(object sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            BeginMoveDrag(e);
+        }
+    }
 
     private async void CheckAwsButton_OnClick(object? sender, RoutedEventArgs e)
     //check aws button behavior
