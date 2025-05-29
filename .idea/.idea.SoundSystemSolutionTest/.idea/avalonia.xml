@@ -7,6 +7,7 @@
         <entry key="SoundSystemSolutionTest/Dashboard.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
         <entry key="SoundSystemSolutionTest/LoginWindow.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
         <entry key="SoundSystemSolutionTest/MainWindow.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
+        <entry key="SoundSystemSolutionTest/Transaction.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
       </map>
     </option>
   </component>

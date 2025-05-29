@@ -29,3 +29,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Alec/RiderProjects/SoundSystemSolutionTest/SoundSystemSolutionTest/Transaction.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

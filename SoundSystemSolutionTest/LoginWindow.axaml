@@ -54,7 +54,7 @@
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="Auto, Auto, *">
+    <Grid RowDefinitions="Auto, Auto, *,*">
         <!-- Top Rectangle with Gradient -->
         <StackPanel Grid.Row="0" Height="30" IsHitTestVisible="False">
             <StackPanel.Background>

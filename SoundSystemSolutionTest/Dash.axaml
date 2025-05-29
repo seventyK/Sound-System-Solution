@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="500"
         Width="1280" Height="720"
         x:Class="SoundSystemSolutionTest.Dash"
         RequestedThemeVariant="Light"
@@ -10,6 +10,9 @@
         ExtendClientAreaToDecorationsHint="True">
     
     <Window.Styles>
+        
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         
         <!-- Tab Button Style -->
         <Style Selector="Button.TabButton">
@@ -126,7 +129,12 @@
                             Click="OnTabButtonClick"/>
                     
                     <Button x:Name="Tab3Button" 
-                            Content="Ongoing Rentals" 
+                            Content="Active Rentals" 
+                            Classes="TabButton"
+                            Click="OnTabButtonClick"/>
+                    
+                    <Button x:Name="Tab4Button"
+                            Content="Outstanding Payments"
                             Classes="TabButton"
                             Click="OnTabButtonClick"/>
                     

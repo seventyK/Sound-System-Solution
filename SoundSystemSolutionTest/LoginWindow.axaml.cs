@@ -22,11 +22,12 @@ public partial class LoginWindow : Window
         Database = "logincredentials"
     };
     
+    
     public LoginWindow()
     {
         InitializeComponent();
     }
-
+    
     
     private async void LoginButton_OnClick(object? sender, RoutedEventArgs? e)
     //login button behaviour
@@ -53,8 +54,11 @@ public partial class LoginWindow : Window
             if (isValid)
             {
                 //login successful, proceed with application logic
-                //navigate to main application window?????
+                //navigate to a main application window?????
                 StatusLabel.Text = "Login successful";
+                
+                await CleanupConnectionsAsync();
+                
                 var newLogin = new Dash();
                 newLogin.Show();
                 
@@ -62,13 +66,13 @@ public partial class LoginWindow : Window
             }
             else
             {
-                //login failed, show error message
+                //login failed, show an error message
                 StatusLabel.Text = "Invalid username or password";
             }
         }
         catch (Exception ex)
         {
-            //show error to user
+            //show error to the user
             Console.WriteLine($"Login error: {ex.Message}");
             
         }
@@ -82,6 +86,22 @@ public partial class LoginWindow : Window
         {
             LoginButton_OnClick(LoginButton, null);
             e.Handled = true;
+        }
+    }
+    
+    
+    private async Task CleanupConnectionsAsync()
+    //clears the connection pool to prevent connection leaks
+    {
+        try
+        {
+            MySqlConnection.ClearPool(new MySqlConnection(Connection.ConnectionString));
+        
+            await Task.Delay(100);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Connection cleanup error: {ex.Message}");
         }
     }
     
@@ -121,6 +141,7 @@ public partial class LoginWindow : Window
         }
     }
     
+    
     private void TitleBar_PointerPressed(object sender, PointerPressedEventArgs e)
     {
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
@@ -129,6 +150,7 @@ public partial class LoginWindow : Window
         }
     }
 
+    
     private async void CheckAwsButton_OnClick(object? sender, RoutedEventArgs e)
     //check aws button behavior
     //checks if the AWS database connection is working
