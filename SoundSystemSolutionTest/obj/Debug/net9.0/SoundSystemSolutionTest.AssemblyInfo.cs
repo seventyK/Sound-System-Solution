@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SoundSystemSolutionTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0dc8d42119e657338ba9e9beccf8b1c3e52388c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b93001f2065d02f33a4eb0948dad950d7a08e2f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SoundSystemSolutionTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SoundSystemSolutionTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
