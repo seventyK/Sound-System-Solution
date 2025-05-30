@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
-using Avalonia.Styling;
 using MySql.Data.MySqlClient;
 
 namespace SoundSystemSolutionTest
@@ -20,6 +19,7 @@ namespace SoundSystemSolutionTest
         private Panel? _tab2Content; //transaction tab content
         private Panel? _tab3Content; //rentals tab content
         private Panel? _tab4Content; //partial deposits tab content
+        private Panel? _tab5Content; //inventory tab content
         
         //part of transaction tab content
         private ContentControl? _contentArea;
@@ -51,90 +51,35 @@ namespace SoundSystemSolutionTest
             InitializeTabContent();
         }
 
+        private void OnWindowPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        //prevents the window from being resized when the window is maximized (getting shaved down on the left side)
+        {
+            if (e.Property == WindowStateProperty)
+            {
+                UpdateWindowMargins();
+            }
+        }
+
+        private void UpdateWindowMargins()
+        //updates the window margins when the window is resized
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                Padding = new Thickness(8, 0, 8, 8);
+            }
+            else
+            {
+                Padding = new Thickness(0);
+            }
+        }
+        
         private void InitializeComponent()
         //initializes the tabs and their content
         {
             AvaloniaXamlLoader.Load(this);
             
+            PropertyChanged += OnWindowPropertyChanged;
             _contentArea = this.FindControl<ContentControl>("ContentArea");
-            
-            //////
-            ////// STYLES ////////////////////
-            //////
-            
-            //data grid theme
-            var dataGridTheme = new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"))
-            {
-                Source = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml")
-            };
-
-            //buttons
-            var buttonTheme = new Style(x => x.OfType<Button>().Class("ContentButton"))
-            {
-                Setters =
-                {
-                    new Setter(ForegroundProperty, new SolidColorBrush(Colors.DarkBlue)),
-                    new Setter(BackgroundProperty, new SolidColorBrush(Color.Parse("#E0E0E0"))),
-                    new Setter(BorderBrushProperty, new SolidColorBrush(Color.Parse("#E0E0E0"))),
-                    new Setter(BorderThicknessProperty, new Avalonia.Thickness(1)),
-                    new Setter(HeightProperty, 30.0),
-                    new Setter(MinWidthProperty, 150.0),
-                    new Setter(CornerRadiusProperty, new Avalonia.CornerRadius(4)),
-                    new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Center)
-                }
-            };
-            
-            //data grid styles
-            var dataGridStyle = new Style(x => x.OfType<DataGrid>())
-            {
-                Setters =
-                {
-                    new Setter(BorderBrushProperty, new SolidColorBrush(Colors.DarkBlue)),
-                    new Setter(DataGrid.GridLinesVisibilityProperty, DataGridGridLinesVisibility.All),
-                    new Setter(DataGrid.HeadersVisibilityProperty, DataGridHeadersVisibility.All)
-                }
-            };
-
-            //data grid header
-            var dataGridHeaderStyle = new Style(x => x.OfType<DataGridColumnHeader>())
-            {
-                Setters =
-                {
-                    new Setter(BorderBrushProperty, new SolidColorBrush(Colors.DarkBlue)),
-                    new Setter(BorderThicknessProperty, new Avalonia.Thickness(0.5)),
-                    new Setter(ForegroundProperty, new SolidColorBrush(Colors.Black)),
-                    new Setter(BackgroundProperty, new SolidColorBrush(Colors.Azure)),
-                    new Setter(PaddingProperty, new Avalonia.Thickness(8, 4)),
-                    new Setter(FontWeightProperty, FontWeight.SemiBold),
-                    new Setter(FontSizeProperty, 15.0)
-                }
-            };
-
-            //data grid cell styles
-            var dataGridCellStyle = new Style(x => x.OfType<DataGridCell>())
-            {
-                Setters =
-                {
-                    new Setter(BorderBrushProperty, new SolidColorBrush(Colors.DarkBlue)),
-                    new Setter(BorderThicknessProperty, new Avalonia.Thickness(0.5)),
-                    new Setter(ForegroundProperty, new SolidColorBrush(Colors.Black)),
-                    new Setter(BackgroundProperty, new SolidColorBrush(Colors.Azure)),
-                    new Setter(FontSizeProperty, 14.0)
-                }
-            };
-
-            // Add the styles
-            Styles.Add(dataGridStyle);
-            Styles.Add(dataGridHeaderStyle);
-            Styles.Add(dataGridCellStyle);
-
-            
-            Styles.Add(dataGridTheme);
-            Styles.Add(buttonTheme);
-            
-            //////
-            ////// STYLES  END ///////////////
-            //////
             
             //////
             ////// WELCOME TAB CONTENT ///////
@@ -162,12 +107,11 @@ namespace SoundSystemSolutionTest
             var border = new Border
             {
                 BorderBrush = new SolidColorBrush(Colors.SkyBlue),
-                BorderThickness = new Avalonia.Thickness(2),
-                CornerRadius = new Avalonia.CornerRadius(8),
-                Padding = new Avalonia.Thickness(20),
-                Margin = new Avalonia.Thickness(0, 10, 0, 10),
-                Background = new SolidColorBrush(
-                    Color.FromArgb(20, 135, 206, 250))
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(20),
+                Margin = new Thickness(0, 10, 0, 10),
+                Background = new SolidColorBrush(Color.FromArgb(20, 135, 206, 250)) //for transparency
             };
             
             var messagePanel = new StackPanel { Spacing = 15 };
@@ -188,7 +132,6 @@ namespace SoundSystemSolutionTest
             //////
             ////// WELCOME TAB CONTENT END //////
             //////
-            
             
             
             //////
@@ -222,13 +165,13 @@ namespace SoundSystemSolutionTest
             
             var transactionBorder = new Border
             {
-                CornerRadius = new Avalonia.CornerRadius(8),
+                CornerRadius = new CornerRadius(8),
                 BoxShadow = BoxShadows.Parse("0 4 8 0 #20000000"),
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                BorderThickness = new Avalonia.Thickness(1),
-                Margin = new Avalonia.Thickness(15),
-                Padding = new Avalonia.Thickness(15),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(15),
+                Padding = new Thickness(15),
                 ClipToBounds = true,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch 
@@ -254,10 +197,10 @@ namespace SoundSystemSolutionTest
             _transactionDataGrid = new DataGrid
             {
                 IsReadOnly = true,
-                Margin = new Avalonia.Thickness(0, 10, 0, 0), 
+                Margin = new Thickness(0, 10, 0, 0), 
                 GridLinesVisibility = DataGridGridLinesVisibility.All,
                 HeadersVisibility = DataGridHeadersVisibility.All,
-                BorderThickness = new Avalonia.Thickness(1),
+                BorderThickness = new Thickness(1),
                 BorderBrush = new SolidColorBrush(Colors.Gray),
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -354,7 +297,7 @@ namespace SoundSystemSolutionTest
             {
                 Content = "Refresh",
                 FontSize = 15,
-                Margin = new Avalonia.Thickness(0, 0, 10, 0),
+                Margin = new Thickness(0, 0, 10, 0),
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -408,13 +351,13 @@ namespace SoundSystemSolutionTest
             
             var activeRentalsBorder = new Border
             {
-                CornerRadius = new Avalonia.CornerRadius(8),
+                CornerRadius = new CornerRadius(8),
                 BoxShadow = BoxShadows.Parse("0 4 8 0 #20000000"),
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                BorderThickness = new Avalonia.Thickness(1),
-                Margin = new Avalonia.Thickness(15),
-                Padding = new Avalonia.Thickness(15),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(15),
+                Padding = new Thickness(15),
                 ClipToBounds = true,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch 
@@ -463,7 +406,7 @@ namespace SoundSystemSolutionTest
             {
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             scrollViewer.SetValue(Grid.RowProperty, 1);
             
@@ -506,13 +449,13 @@ namespace SoundSystemSolutionTest
             
             var partialDepositsBorder = new Border
             {
-                CornerRadius = new Avalonia.CornerRadius(8),
+                CornerRadius = new CornerRadius(8),
                 BoxShadow = BoxShadows.Parse("0 4 8 0 #20000000"),
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                BorderThickness = new Avalonia.Thickness(1),
-                Margin = new Avalonia.Thickness(15),
-                Padding = new Avalonia.Thickness(15),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(15),
+                Padding = new Thickness(15),
                 ClipToBounds = true,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch 
@@ -561,7 +504,7 @@ namespace SoundSystemSolutionTest
             {
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             partialDepositsScrollViewer.SetValue(Grid.RowProperty, 1);
             
@@ -580,17 +523,29 @@ namespace SoundSystemSolutionTest
             ////// PARTIAL DEPOSITS TAB END ///////
             //////
 
+            var tab5Content = new TextBlock
+            {
+                Text = "Tab 5 Content",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = 16
+            };
+            
+            _tab5Content?.Children.Add(tab5Content);
+
             
             //applies button names from .axaml counterpart
             var tab1Button = this.FindControl<Button>("Tab1Button");
             var tab2Button = this.FindControl<Button>("Tab2Button");
             var tab3Button = this.FindControl<Button>("Tab3Button");
             var tab4Button = this.FindControl<Button>("Tab4Button");
+            var tab5Button = this.FindControl<Button>("Tab5Button");
             
             if (tab1Button != null) _tabButtons["Tab1Button"] = tab1Button;
             if (tab2Button != null) _tabButtons["Tab2Button"] = tab2Button;
             if (tab3Button != null) _tabButtons["Tab3Button"] = tab3Button;
             if (tab4Button != null) _tabButtons["Tab4Button"] = tab4Button;
+            if (tab5Button != null) _tabButtons["Tab5Button"] = tab5Button;
         }
 
         private void InitializeTabContent()
@@ -642,7 +597,7 @@ namespace SoundSystemSolutionTest
                                 (CURDATE() > RentEndDate) AS IsRentalExpired, -- calculates if the rental is expired
                                 BundleID, CustomerID 
                                 FROM transactions 
-                                ORDER BY TransactionID DESC";
+                                ORDER BY TransactionID";
                 
                 await using var cmd = new MySqlCommand(query, conn);
                 await using var reader = await cmd.ExecuteReaderAsync();
@@ -779,10 +734,10 @@ namespace SoundSystemSolutionTest
                     {
                         Background = new SolidColorBrush(Color.Parse("#F5F5F5")),
                         BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                        BorderThickness = new Avalonia.Thickness(1),
-                        CornerRadius = new Avalonia.CornerRadius(8),
-                        Padding = new Avalonia.Thickness(20),
-                        Margin = new Avalonia.Thickness(5),
+                        BorderThickness = new Thickness(1),
+                        CornerRadius = new CornerRadius(8),
+                        Padding = new Thickness(20),
+                        Margin = new Thickness(5),
                         Child = new TextBlock
                         {
                             Text = "No active rentals found",
@@ -807,10 +762,10 @@ namespace SoundSystemSolutionTest
             {
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                BorderThickness = new Avalonia.Thickness(1),
-                CornerRadius = new Avalonia.CornerRadius(8),
-                Padding = new Avalonia.Thickness(15),
-                Margin = new Avalonia.Thickness(5),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(15),
+                Margin = new Thickness(5),
                 BoxShadow = BoxShadows.Parse("0 2 4 0 #10000000")
             };
             
@@ -829,7 +784,7 @@ namespace SoundSystemSolutionTest
                 }
             };
             
-            // Header row - Transaction ID and Status
+            //header panel
             var headerPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -847,8 +802,8 @@ namespace SoundSystemSolutionTest
             var statusBadge = new Border
             {
                 Background = new SolidColorBrush(Color.Parse("#4CAF50")),
-                CornerRadius = new Avalonia.CornerRadius(12),
-                Padding = new Avalonia.Thickness(8, 4),
+                CornerRadius = new CornerRadius(12),
+                Padding = new Thickness(8, 4),
                 Child = new TextBlock
                 {
                     Text = "ACTIVE",
@@ -863,7 +818,7 @@ namespace SoundSystemSolutionTest
             headerPanel.SetValue(Grid.ColumnSpanProperty, 2);
             cardContent.Children.Add(headerPanel);
             
-            // Details grid
+            //details grid
             var detailsGrid = new Grid
             {
                 RowDefinitions =
@@ -877,10 +832,10 @@ namespace SoundSystemSolutionTest
                     new ColumnDefinition(GridLength.Star),
                     new ColumnDefinition(GridLength.Star)
                 },
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             
-            // Customer and Bundle info
+            //customer and bundle details
             var customerInfo = CreateInfoBlock("Customer ID:", transaction.CustomerId);
             customerInfo.SetValue(Grid.RowProperty, 0);
             customerInfo.SetValue(Grid.ColumnProperty, 0);
@@ -891,7 +846,7 @@ namespace SoundSystemSolutionTest
             bundleInfo.SetValue(Grid.ColumnProperty, 1);
             detailsGrid.Children.Add(bundleInfo);
             
-            // Rental dates
+            //rental info
             var startDateInfo = CreateInfoBlock("Start Date:", transaction.RentDate);
             startDateInfo.SetValue(Grid.RowProperty, 1);
             startDateInfo.SetValue(Grid.ColumnProperty, 0);
@@ -902,7 +857,7 @@ namespace SoundSystemSolutionTest
             endDateInfo.SetValue(Grid.ColumnProperty, 1);
             detailsGrid.Children.Add(endDateInfo);
             
-            // Payment info
+            //payment info
             var methodInfo = CreateInfoBlock("Payment Method:", transaction.Method);
             methodInfo.SetValue(Grid.RowProperty, 2);
             methodInfo.SetValue(Grid.ColumnProperty, 0);
@@ -917,12 +872,12 @@ namespace SoundSystemSolutionTest
             detailsGrid.SetValue(Grid.ColumnSpanProperty, 2);
             cardContent.Children.Add(detailsGrid);
             
-            // Duration info
+            //duration info
             var durationPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
                 Spacing = 5,
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             
             durationPanel.Children.Add(new TextBlock
@@ -954,7 +909,7 @@ namespace SoundSystemSolutionTest
             var panel = new StackPanel
             {
                 Spacing = 2,
-                Margin = new Avalonia.Thickness(0, 0, 10, 5)
+                Margin = new Thickness(0, 0, 10, 5)
             };
             
             panel.Children.Add(new TextBlock
@@ -1035,10 +990,10 @@ namespace SoundSystemSolutionTest
                     {
                         Background = new SolidColorBrush(Color.Parse("#F5F5F5")),
                         BorderBrush = new SolidColorBrush(Color.Parse("#E0E0E0")),
-                        BorderThickness = new Avalonia.Thickness(1),
-                        CornerRadius = new Avalonia.CornerRadius(8),
-                        Padding = new Avalonia.Thickness(20),
-                        Margin = new Avalonia.Thickness(5),
+                        BorderThickness = new Thickness(1),
+                        CornerRadius = new CornerRadius(8),
+                        Padding = new Thickness(20),
+                        Margin = new Thickness(5),
                         Child = new TextBlock
                         {
                             Text = "No partial deposits found",
@@ -1063,10 +1018,10 @@ namespace SoundSystemSolutionTest
             {
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Color.Parse("#FFA500")), // Orange border for partial deposits
-                BorderThickness = new Avalonia.Thickness(2),
-                CornerRadius = new Avalonia.CornerRadius(8),
-                Padding = new Avalonia.Thickness(15),
-                Margin = new Avalonia.Thickness(5),
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(15),
+                Margin = new Thickness(5),
                 BoxShadow = BoxShadows.Parse("0 2 4 0 #10000000")
             };
             
@@ -1085,7 +1040,7 @@ namespace SoundSystemSolutionTest
                 }
             };
             
-            // Header row - Transaction ID and Deposit Status
+            //header row - transaction ID and status
             var headerPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -1103,8 +1058,8 @@ namespace SoundSystemSolutionTest
             var depositBadge = new Border
             {
                 Background = new SolidColorBrush(Color.Parse("#FF9800")), // Orange background
-                CornerRadius = new Avalonia.CornerRadius(12),
-                Padding = new Avalonia.Thickness(8, 4),
+                CornerRadius = new CornerRadius(12),
+                Padding = new Thickness(8, 4),
                 Child = new TextBlock
                 {
                     Text = "PARTIAL DEPOSIT",
@@ -1116,14 +1071,14 @@ namespace SoundSystemSolutionTest
             
             headerPanel.Children.Add(depositBadge);
             
-            // Add rental status badge if expired
+            //add the deposit status to the header panel
             if (transaction.IsRentalExpired)
             {
                 var expiredBadge = new Border
                 {
                     Background = new SolidColorBrush(Color.Parse("#F44336")), // Red background
-                    CornerRadius = new Avalonia.CornerRadius(12),
-                    Padding = new Avalonia.Thickness(8, 4),
+                    CornerRadius = new CornerRadius(12),
+                    Padding = new Thickness(8, 4),
                     Child = new TextBlock
                     {
                         Text = "EXPIRED",
@@ -1139,7 +1094,7 @@ namespace SoundSystemSolutionTest
             headerPanel.SetValue(Grid.ColumnSpanProperty, 2);
             cardContent.Children.Add(headerPanel);
             
-            // Details grid
+            //details grid
             var detailsGrid = new Grid
             {
                 RowDefinitions =
@@ -1154,10 +1109,10 @@ namespace SoundSystemSolutionTest
                     new ColumnDefinition(GridLength.Star),
                     new ColumnDefinition(GridLength.Star)
                 },
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             
-            // Customer and Bundle info
+            //customer and bundle info
             var customerInfo = CreateInfoBlock("Customer ID:", transaction.CustomerId);
             customerInfo.SetValue(Grid.RowProperty, 0);
             customerInfo.SetValue(Grid.ColumnProperty, 0);
@@ -1168,7 +1123,7 @@ namespace SoundSystemSolutionTest
             bundleInfo.SetValue(Grid.ColumnProperty, 1);
             detailsGrid.Children.Add(bundleInfo);
             
-            // Rental dates
+            //renter info
             var startDateInfo = CreateInfoBlock("Start Date:", transaction.RentDate);
             startDateInfo.SetValue(Grid.RowProperty, 1);
             startDateInfo.SetValue(Grid.ColumnProperty, 0);
@@ -1179,7 +1134,7 @@ namespace SoundSystemSolutionTest
             endDateInfo.SetValue(Grid.ColumnProperty, 1);
             detailsGrid.Children.Add(endDateInfo);
             
-            // Payment info
+            //payment info
             var methodInfo = CreateInfoBlock("Payment Method:", transaction.Method);
             methodInfo.SetValue(Grid.RowProperty, 2);
             methodInfo.SetValue(Grid.ColumnProperty, 0);
@@ -1190,7 +1145,7 @@ namespace SoundSystemSolutionTest
             amountInfo.SetValue(Grid.ColumnProperty, 1);
             detailsGrid.Children.Add(amountInfo);
             
-            // Deposit and rental fee info
+            //deposit info
             var depositInfo = CreateInfoBlock("Deposit Status:", transaction.Deposit);
             depositInfo.SetValue(Grid.RowProperty, 3);
             depositInfo.SetValue(Grid.ColumnProperty, 0);
@@ -1205,12 +1160,12 @@ namespace SoundSystemSolutionTest
             detailsGrid.SetValue(Grid.ColumnSpanProperty, 2);
             cardContent.Children.Add(detailsGrid);
             
-            // Duration info
+            //duration info
             var durationPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
                 Spacing = 5,
-                Margin = new Avalonia.Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             
             durationPanel.Children.Add(new TextBlock
@@ -1271,6 +1226,8 @@ namespace SoundSystemSolutionTest
                         _contentArea.Content = _tab4Content;
                         await LoadPartialDepositsAsync();
                     }
+                    else if (clickedButton.Name == "Tab5Button")
+                        _contentArea.Content = _tab5Content;
                 }
             }
         }

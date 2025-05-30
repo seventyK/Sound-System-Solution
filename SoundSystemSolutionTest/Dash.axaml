@@ -7,35 +7,74 @@
         x:Class="SoundSystemSolutionTest.Dash"
         RequestedThemeVariant="Light"
         Title="Dashboard"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="True"
+        Icon="/Assets/bicolsound_logo.ico">
     
     <Window.Styles>
         
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         
-        <!-- Tab Button Style -->
+        <!-- Enhanced Tab Button Style -->
         <Style Selector="Button.TabButton">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="8 3"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
         </Style>
-        
-        <!-- Selected Tab Button Style -->
+
+        <!-- Hover State -->
+        <Style Selector="Button.TabButton:pointerover">
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+
+        <!-- Pressed State -->
         <Style Selector="Button.TabButton:pressed">
-            <Setter Property="Background" Value="#BDBDBD"/>
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Margin" Value="9 4 7 2"/>
         </Style>
-        
+
+        <!-- Selected Tab Button Style -->
         <Style Selector="Button.TabButton.Selected">
-            <Setter Property="Background" Value="#90CAF9"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                    <GradientStop Color="#330d69" Offset="0.0" />
+                    <GradientStop Color="#3d4283" Offset="0.5" />
+                    <GradientStop Color="#285ce0" Offset="1.0" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Effect">
+                <DropShadowEffect Color="#285ce0" OffsetX="0" OffsetY="2" BlurRadius="8" Opacity="0.3"/>
+            </Setter>
+        </Style>
+
+        <!-- Selected button hover state -->
+        <Style Selector="Button.TabButton.Selected:pointerover">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                    <GradientStop Color="#3d1575" Offset="0.0" />
+                    <GradientStop Color="#4a4d8f" Offset="0.5" />
+                    <GradientStop Color="#3366ec" Offset="1.0" />
+                </LinearGradientBrush>
+            </Setter>
         </Style>
         
     </Window.Styles>
@@ -68,7 +107,7 @@
                        FontSize="24" 
                        FontWeight="Bold" 
                        Foreground="White" 
-                       Padding="17 15 2 15"/>
+                       Padding="12 15 2 15"/>
             
             <TextBlock Grid.Column="1" 
                        Text=" | Rental Management System" 
@@ -111,12 +150,41 @@
         </Grid>
         
         <!-- Main Content Area -->
-        <Grid Grid.Row="2" ColumnDefinitions="250,*">
+        <Grid Grid.Row="2" ColumnDefinitions="225,*">
             
             <!-- Left Sidebar with Tabs -->
             <Border Grid.Column="0" Background="#F5F5F5" Padding="5">
                 
                 <StackPanel>
+    
+                    <TextBlock Text="Navigation"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#330d69"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="15 5 0 5"
+                               Padding="8 0"/>
+
+    
+                    <!-- Horizontal line spacer -->
+                    <Border Height="2" 
+                            Margin="8 2 6 5">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                                <GradientStop Color="#330d69" Offset="0.0" />
+                                <GradientStop Color="#3d4283" Offset="0.5" />
+                                <GradientStop Color="#285ce0" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect Color="Gray" OffsetX="0" OffsetY="1" BlurRadius="2" Opacity="0.3"/>
+                        </Border.Effect>
+                    </Border>
+
+
+
                     
                     <Button x:Name="Tab1Button" 
                             Content="Welcome" 
@@ -134,7 +202,12 @@
                             Click="OnTabButtonClick"/>
                     
                     <Button x:Name="Tab4Button"
-                            Content="Outstanding Payments"
+                            Content="Due Payments"
+                            Classes="TabButton"
+                            Click="OnTabButtonClick"/>
+                    
+                    <Button x:Name="Tab5Button"
+                            Content="Inventory"
                             Classes="TabButton"
                             Click="OnTabButtonClick"/>
                     

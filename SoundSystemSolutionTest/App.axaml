@@ -1,10 +1,106 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="SoundSystemSolutionTest.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Light">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
+    <Application.Resources>
+        <!-- Define gradient brushes as resources -->
+        <LinearGradientBrush x:Key="SelectedGradient" StartPoint="0%, 50%" EndPoint="100%, 50%">
+            <GradientStop Color="#330d69" Offset="0.0"/>
+            <GradientStop Color="#3d4283" Offset="0.5"/>
+            <GradientStop Color="#285ce0" Offset="1.0"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="SelectedHoverGradient" StartPoint="0%, 50%" EndPoint="100%, 50%">
+            <GradientStop Color="#3d1575" Offset="0.0"/>
+            <GradientStop Color="#4a4d8f" Offset="0.5"/>
+            <GradientStop Color="#3366ec" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Application.Resources>
+
+             
     <Application.Styles>
         <FluentTheme />
+        
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+  
+        <!-- Data Grid Styles -->
+        <Style Selector="DataGrid">
+            <Setter Property="BorderBrush" Value="DarkBlue" />
+            <Setter Property="GridLinesVisibility" Value="All" />
+            <Setter Property="HeadersVisibility" Value="All" />
+        </Style>
+  
+        <!-- Data Grid Header Style -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="BorderBrush" Value="DarkBlue" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Azure" />
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+  
+        <!-- Data Grid Cell Style -->
+        <Style Selector="DataGridCell">
+            <Setter Property="BorderBrush" Value="DarkBlue" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Azure" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        
+        <Style Selector="Button.ContentButton">
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="8,3"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- Hover State -->
+        <Style Selector="Button.ContentButton:pointerover">
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+
+        <!-- Pressed State -->
+        <Style Selector="Button.ContentButton:pressed">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Margin" Value="9,4,7,2"/>
+        </Style>
+
+        <!-- Selected State -->
+        <Style Selector="Button.ContentButton.Selected">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="{StaticResource SelectedGradient}"/>
+            <Setter Property="Effect">
+                <DropShadowEffect Color="#285ce0" OffsetX="0" OffsetY="2" BlurRadius="8" Opacity="0.3"/>
+            </Setter>
+        </Style>
+
+        <!-- Selected Hover State -->
+        <Style Selector="Button.ContentButton.Selected:pointerover">
+            <Setter Property="Background" Value="{StaticResource SelectedHoverGradient}"/>
+        </Style>
+        
     </Application.Styles>
 </Application>

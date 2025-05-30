@@ -8,7 +8,8 @@
         RequestedThemeVariant="Light"
         Title="SoundSystemSolutionTest"
         CanResize="False"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="True"
+        Icon="/Assets/bicolsound_logo.ico">
     
     <Window.Styles>
         <!-- Button style -->

@@ -3,6 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="SoundSystemSolutionTest/App.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
         <entry key="SoundSystemSolutionTest/Dash.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
         <entry key="SoundSystemSolutionTest/Dashboard.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />
         <entry key="SoundSystemSolutionTest/LoginWindow.axaml" value="SoundSystemSolutionTest/SoundSystemSolutionTest.csproj" />

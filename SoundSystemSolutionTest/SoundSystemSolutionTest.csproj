@@ -31,6 +31,8 @@
         <AvaloniaResource Include="Assets\logout_icon.png" />
         <None Remove="Assets\dashboard_person.png" />
         <AvaloniaResource Include="Assets\dashboard_person.png" />
+        <None Remove="Assets\bicolsound_logo.ico" />
+        <AvaloniaResource Include="Assets\bicolsound_logo.ico" />
     </ItemGroup>
 
 
