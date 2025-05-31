@@ -19,7 +19,6 @@ namespace SoundSystemSolutionTest
         private Panel? _tab2Content; //transaction tab content
         private Panel? _tab3Content; //rentals tab content
         private Panel? _tab4Content; //partial deposits tab content
-        private Panel? _tab5Content; //inventory tab content
         
         //part of transaction tab content
         private ContentControl? _contentArea;
@@ -318,7 +317,9 @@ namespace SoundSystemSolutionTest
             transactionButtonNew.Classes.Add("ContentButton");
             transactionButtonNew.SetValue(Grid.RowProperty, 0);
             transactionButtonNew.SetValue(Grid.ColumnProperty, 2);
+            transactionButtonNew.Click += NewTransaction_Click;
             transactionGrid.Children.Add(transactionButtonNew);
+            
             
             _tab2Content.Children.Add(transactionBorder);
             
@@ -530,8 +531,6 @@ namespace SoundSystemSolutionTest
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = 16
             };
-            
-            _tab5Content?.Children.Add(tab5Content);
 
             
             //applies button names from .axaml counterpart
@@ -539,13 +538,11 @@ namespace SoundSystemSolutionTest
             var tab2Button = this.FindControl<Button>("Tab2Button");
             var tab3Button = this.FindControl<Button>("Tab3Button");
             var tab4Button = this.FindControl<Button>("Tab4Button");
-            var tab5Button = this.FindControl<Button>("Tab5Button");
             
             if (tab1Button != null) _tabButtons["Tab1Button"] = tab1Button;
             if (tab2Button != null) _tabButtons["Tab2Button"] = tab2Button;
             if (tab3Button != null) _tabButtons["Tab3Button"] = tab3Button;
             if (tab4Button != null) _tabButtons["Tab4Button"] = tab4Button;
-            if (tab5Button != null) _tabButtons["Tab5Button"] = tab5Button;
         }
 
         private void InitializeTabContent()
@@ -561,15 +558,15 @@ namespace SoundSystemSolutionTest
         //data model for the transaction item
         {
             public string TransactionId { get; set; } = string.Empty;
-            public string Method { get; set; } = string.Empty;
-            public string Amount { get; set; } = string.Empty;
-            public string Deposit { get; set; } = string.Empty;
-            public string RentalFee { get; set; } = string.Empty;
-            public string RentDate { get; set; } = string.Empty;
+            public string? Method { get; set; } = string.Empty;
+            public string? Amount { get; set; } = string.Empty;
+            public string? Deposit { get; set; } = string.Empty;
+            public string? RentalFee { get; set; } = string.Empty;
+            public string? RentDate { get; set; } = string.Empty;
             public string RentDuration { get; set; } = string.Empty;
-            public string RentEndDate { get; set; } = string.Empty;
-            public string BundleId { get; set; } = string.Empty;
-            public string CustomerId { get; set; } = string.Empty;
+            public string? RentEndDate { get; set; } = string.Empty;
+            public string? BundleId { get; set; } = string.Empty;
+            public string? CustomerId { get; set; } = string.Empty;
             
             //rental status is determined by the expiration date of the rental
             public bool IsRentalExpired { get; set; }
@@ -582,55 +579,74 @@ namespace SoundSystemSolutionTest
             await LoadTransactionsAsync();
         }
 
+        private async void NewTransaction_Click(object? sender, RoutedEventArgs e)
+        {
+            var purchaseWizard = new PurchaseWizard();
+            await purchaseWizard.ShowDialog(this);
+        }
+
         private async Task LoadTransactionsAsync()
-        //loads the transactions from the database and populates the data grid
+        //loads the transactions from the database
         {
             try
             {
                 _transactionData.Clear();
                 
-                await using var conn = new MySqlConnection(Connection.ConnectionString);
-                await conn.OpenAsync();
+                var transactions = new List<TransactionItem>();
                 
-                string query = @"SELECT TransactionID, Method, Amount, Deposit, RentalFee, 
-                                RentDate, RentDuration, RentEndDate, 
-                                (CURDATE() > RentEndDate) AS IsRentalExpired, -- calculates if the rental is expired
-                                BundleID, CustomerID 
-                                FROM transactions 
-                                ORDER BY TransactionID";
-                
-                await using var cmd = new MySqlCommand(query, conn);
-                await using var reader = await cmd.ExecuteReaderAsync();
-                
-                while (await reader.ReadAsync())
+                await Task.Run(async () =>
                 {
-                    var transaction = new TransactionItem
-                    {
-                        TransactionId = reader["TransactionID"].ToString() ?? string.Empty,
-                        Method = GetMethodText(reader["Method"]),
-                        Amount = FormatCurrency(reader["Amount"]),
-                        Deposit = GetDepositText(reader["Deposit"]),
-                        RentalFee = FormatCurrency(reader["RentalFee"]),
-                        RentDate = reader["RentDate"] != DBNull.Value ? 
-                            Convert.ToDateTime(reader["RentDate"]).ToString("yyyy-MM-dd") : "N/A",
-                        RentDuration = reader["RentDuration"] != DBNull.Value ? 
-                            reader["RentDuration"] + " days" : "N/A",
-                        RentEndDate = reader["RentEndDate"] != DBNull.Value ? 
-                            Convert.ToDateTime(reader["RentEndDate"]).ToString("yyyy-MM-dd") : "N/A",
-                        IsRentalExpired = reader["IsRentalExpired"] != DBNull.Value && 
-                                         Convert.ToBoolean(reader["IsRentalExpired"]),
-                        BundleId = reader["BundleID"].ToString() ?? string.Empty,
-                        CustomerId = reader["CustomerID"].ToString() ?? string.Empty
-                    };
+                    await using var conn = new MySqlConnection(Connection.ConnectionString);
+                    await conn.OpenAsync();
                     
+                    string query = @"SELECT TransactionID, Method, Amount, Deposit, RentalFee, 
+                                    RentDate, RentDuration, RentEndDate, 
+                                    (CURDATE() > RentEndDate) AS IsRentalExpired,
+                                    BundleID, CustomerID 
+                                    FROM transactions 
+                                    ORDER BY TransactionID DESC";
+                    
+                    await using var cmd = new MySqlCommand(query, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+                    
+                    while (await reader.ReadAsync())
+                    {
+                        var transaction = new TransactionItem
+                        {
+                            TransactionId = reader["TransactionID"].ToString() ?? string.Empty,
+                            Method = GetMethodText(reader["Method"]),
+                            Amount = FormatCurrency(reader["Amount"]),
+                            Deposit = GetDepositText(reader["Deposit"]),
+                            RentalFee = FormatCurrency(reader["RentalFee"]),
+                            RentDate = reader["RentDate"] != DBNull.Value ? 
+                                Convert.ToDateTime(reader["RentDate"]).ToString("yyyy-MM-dd") : "N/A",
+                            RentDuration = reader["RentDuration"] != DBNull.Value ? 
+                                reader["RentDuration"] + " days" : "N/A",
+                            RentEndDate = reader["RentEndDate"] != DBNull.Value ? 
+                                Convert.ToDateTime(reader["RentEndDate"]).ToString("yyyy-MM-dd") : "N/A",
+                            IsRentalExpired = reader["IsRentalExpired"] != DBNull.Value && 
+                                             Convert.ToBoolean(reader["IsRentalExpired"]),
+                            BundleId = reader["BundleID"].ToString() ?? string.Empty,
+                            CustomerId = reader["CustomerID"].ToString() ?? string.Empty
+                        };
+                        
+                        transactions.Add(transaction);
+                    }
+                });
+                
+                // Update UI collection on UI thread
+                foreach (var transaction in transactions)
+                {
                     _transactionData.Add(transaction);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading transactions: {ex.Message}");
+                // Consider showing user-friendly error message
             }
         }
+
 
         private string GetDepositText(object? depositValue)
         //formats the deposit value to a human-readable format
@@ -903,7 +919,7 @@ namespace SoundSystemSolutionTest
             _activeRentalsPanel?.Children.Add(card);
         }
         
-        private StackPanel CreateInfoBlock(string label, string value)
+        private StackPanel CreateInfoBlock(string label, string? value)
         //creates a panel for a label and value
         {
             var panel = new StackPanel
@@ -1226,8 +1242,6 @@ namespace SoundSystemSolutionTest
                         _contentArea.Content = _tab4Content;
                         await LoadPartialDepositsAsync();
                     }
-                    else if (clickedButton.Name == "Tab5Button")
-                        _contentArea.Content = _tab5Content;
                 }
             }
         }

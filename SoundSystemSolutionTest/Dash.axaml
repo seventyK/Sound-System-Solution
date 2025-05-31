@@ -107,7 +107,7 @@
                        FontSize="24" 
                        FontWeight="Bold" 
                        Foreground="White" 
-                       Padding="12 15 2 15"/>
+                       Padding="22 15 2 15"/>
             
             <TextBlock Grid.Column="1" 
                        Text=" | Rental Management System" 
@@ -140,7 +140,7 @@
                     Background="Transparent"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
-                    ToolTip.Tip="Logout"
+                    ToolTip.Tip="Logout (in progress)"
                     Margin="0 -10 0 -12"
                     Padding="0 17 0 15">
                 <Image Source="/Assets/logout_icon.png" Width="60" Height="25"
@@ -182,9 +182,6 @@
                             <DropShadowEffect Color="Gray" OffsetX="0" OffsetY="1" BlurRadius="2" Opacity="0.3"/>
                         </Border.Effect>
                     </Border>
-
-
-
                     
                     <Button x:Name="Tab1Button" 
                             Content="Welcome" 
@@ -203,11 +200,6 @@
                     
                     <Button x:Name="Tab4Button"
                             Content="Due Payments"
-                            Classes="TabButton"
-                            Click="OnTabButtonClick"/>
-                    
-                    <Button x:Name="Tab5Button"
-                            Content="Inventory"
                             Classes="TabButton"
                             Click="OnTabButtonClick"/>
                     
